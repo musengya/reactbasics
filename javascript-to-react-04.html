@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>React Basics</title>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/javascript">
+    function GreetingComponent(props) {
+        return React.createElement(
+            "h2",
+            null,
+            props.text
+        );
+    }
+    const wrapperElement = React.createElement(
+        "div",
+        { id: "container" },
+        React.createElement(GreetingComponent, {text: "Hello"}),
+        React.createElement(GreetingComponent, {text: "World"})
+
+    )
+    ReactDOM.render(wrapperElement, document.getElementById("root")
+    );
+        </script>
+</body>
+
+</html>
