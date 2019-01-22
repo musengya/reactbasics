@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>React</title>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+    class Counter extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                number: 0;
+            };
+        }
+        componentDidMount() {
+            this.interval = setInterval(()=>this.tick, 1000)
+        }
+        componentWillUnmount() {
+            clearInterval(this.interval);
+        }
+        tick() {
+            this.setState(prevstate=> ({
+                number:prevState.number + 1;
+            }));
+        }
+        render(){
+            return (
+                <h2>{this.state.number}</h2>
+            );
+        }
+    }
+    ReactDOM.render(
+        <Counter />,
+        document.getElementById("root")
+    );
+    </script>
+</body>
+
+</html>
