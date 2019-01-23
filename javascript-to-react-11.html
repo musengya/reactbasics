@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>React basics</title>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+class UncontrolledForm extends React.Component{
+    constructor(props){
+        super(props);
+        this.nameInput = React.createRef();
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+    handleSubmit(event){
+        event.preventDefault(); //prevent full page reload
+        console.log("Name: " + this.inputName.current.value)// we log the name here depending on the current value
+
+    }
+    render(){
+        return(
+            <form onSubmit = {this.handleSubmit}>
+            <label>Name:
+            <input type="text"
+             defaultValue = "Irene" //we often want React to specify the initial value, but leave subsequent updates uncontrolled
+             ref={this.nameInput} />
+            </label>
+            <br /> <br />
+            <input type="submit" value="Submit" />
+            </form>
+        );
+    }
+    
+}
+ReactDOM.render(
+    <UncontrolledForm />,
+    document.getElementById("root")
+);
+        </script>
+</body>
+
+</html>
