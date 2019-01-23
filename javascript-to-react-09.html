@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>React Basics</title>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+            class Counter extends React.Component {
+                constructor(props){
+                    super(props);
+                    this.state= {
+                        number: 0,
+                        luckyNumbers:[]
+                    }
+                    this.getLuckyNumber = this.getLuckyNumber.bind(this);
+                    this.deleteLuckyNumber = this.deleteLuckyNumber.bind(this);
+                
+                }
+                componentDidMount() {
+                    this.interval = setInterval(()=> this.tick(), 1)
+                }
+                componentWillUnmount(){
+                    clearInterval(this.interval);
+                }
+                tick() {
+                    this.setState(prevState => ({
+                        number: prevState.number + 1
+                    }));
+                }
+                getLuckyNumber(){
+                    this.setState(prevState => ({
+                        luckyNumbers: prevState.luckyNumbers.concat(prevState.number)
+                    }));
+                }
+                deleteLuckyNumber(clickdNumber){
+                    return(event) => {
+                        this.setState(prevState=> ({
+                            luckyNumbers: prevState.luckyNumbers.filter(number =>
+                            number != clickedNumber
+                            )
+                        }));
+                    };
+                }
+                render(){
+                    return (
+                        <div>
+                        <h2>{this.state.number}</h2>
+                        <button onClick = {this.getLuckyNumber}>
+                        Get Lucky number
+                        </button>
+                        <ul>
+                        {
+                            this.state.luckyNumbers.map(number => (
+                                <li key={number.toString()}>{number}
+                                < <button onClick={this.deleteLuckyNumber(number)}
+                                        >x</button>
+                                </li>
+
+                            ))
+                        }
+                        </ul>
+                        </div>
+                    );
+                }
+            }
+            ReactDOM.render(
+                <Counter />,
+                document.getElementById("root")
+            );
+            </script>
+</body>
+
+</html>
