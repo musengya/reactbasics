@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>React</title>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        class ControlledForm extends React.Component {
+            constructor(props) {
+                super(props);
+
+                this.state = {
+                    name: "",
+                    languages: ["css"],
+                    gender: "",
+                    level: "intermediate",
+                    comments: "",
+                };
+                this.handleChange = this.handleChange.bind(this);
+                this.handleToggleCheckbox = this.handleToggleCheckbox.bind(this);
+                this.handleSubmit = this.handleSubmit.bind(this);
+            }
+
+            handleChange(event) {
+                const name = event.target.name;
+                const value = event.target.value;
+
+                this.setState({ [name]: value });
+            }
+
+            handleToggleCheckbox(event) {
+                const checked = event.target.checked;
+                const value = event.target.value;
+
+                if (checked) {
+                    this.setState(prevState => ({
+                        languages: prevState.languages.concat(value),
+                    }));
+                } else {
+                    this.setState(prevState => ({
+                        languages: prevState.languages.filter(language =>
+                            language != value,
+                        ),
+                    }));
+                }
+            }
+
+            handleSubmit(event) {
+                event.preventDefault();
+
+                console.log("Name: " + this.state.name);
+                console.log("Languages: " + this.state.languages);
+                console.log("Gender: " + this.state.gender);
+                console.log("Level: " + this.state.level);
+                console.log("Comments: " + this.state.comments);
+            }
+
+            render() {
+                return (
+                    <form onSubmit={this.handleSubmit}>
+                        <label>
+                            Name:
+                            <input type="text" name="name" value={this.state.name} onChange={this.handleChange} />
+                        </label>
+                        <br /><br />
+
+                        Languages:
+                        <label>
+                            <input type="checkbox" value="html" checked={this.state.languages.includes("html")} onChange={this.handleToggleCheckbox} /> HTML
+                        </label>
+                        <label>
+                            <input type="checkbox" value="css" checked={this.state.languages.includes("css")} onChange={this.handleToggleCheckbox} /> CSS
+                        </label>
+                        <label>
+                            <input type="checkbox" value="javascript" checked={this.state.languages.includes("javascript")} onChange={this.handleToggleCheckbox} /> JavaScript
+                        </label>
+                        <br /><br />
+
+                        Gender:
+                        <label>
+                            <input type="radio" name="gender" value="male" checked={this.state.gender === "male"} onChange={this.handleChange} /> Male
+                        </label>
+                        <label>
+                            <input type="radio" name="gender" value="female" checked={this.state.gender === "female"} onChange={this.handleChange} /> Female
+                        </label>
+                        <br /><br />
+
+                        <label>
+                            Level:
+                            <select name="level" value={this.state.level} onChange={this.handleChange}>
+                                <option value="beginner">Beginner</option>
+                                <option value="intermediate">Intermediate</option>
+                                <option value="advanced">Advanced</option>
+                            </select>
+                        </label>
+                        <br /><br />
+
+                        <label>
+                            Comments:
+                            <textarea name="comments" value={this.state.comments} onChange={this.handleChange} />
+                        </label>
+                        <br /><br />
+
+                        <input type="submit" value="Submit" />
+                    </form>
+                );
+            }
+        }
+
+        ReactDOM.render(
+            <ControlledForm />,
+            document.getElementById("root")
+        );
+    </script>
+</body>
+
+</html>
