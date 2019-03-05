@@ -21,8 +21,8 @@ module.exports = {
                 use: ["style-loader", "css-loader"]
             },
             {
-                test: /\.(png|svg|jpg|gif)$/,
-                use: {
+                test: /\.(png|svg|jpg|gif)$/, // tells webpack to ook for all files that end with .png, .svg, .jpg, .gif file extensions.
+                use: {   // tells webpack to srve the matched image files to the file-loader.
                     loader: "file-loader"
                 }
             }
